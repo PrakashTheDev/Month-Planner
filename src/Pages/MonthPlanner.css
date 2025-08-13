@@ -1,0 +1,115 @@
+.search-container {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.search-icon {
+  margin-right: 8px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 6px 8px;
+  border: 0;
+}
+
+/* Filter button */
+.filter-dropdown {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Filter panel popup */
+.filter-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 8px;
+  position: absolute;
+  top: 17%;
+  right: 20px;
+  width: 16%;
+  background: #fff;
+  z-index: 999;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Dropdown wrapper */
+.dropdown-wrapper {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* Category & Time dropdowns */
+.category-dropdown,
+.time-dropdown {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.dropdown-arrow {
+  font-size: 8px;
+}
+
+/* Category options */
+.category-options {
+  margin-top: 4px;
+  padding: 8px;
+}
+
+.category-option {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  margin-bottom: 4px;
+}
+
+.category-color-box {
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 6px;
+}
+
+.checkmark {
+  color: #fff;
+  font-size: 12px;
+}
+
+/* Time filter options */
+.time-options {
+  margin-top: 4px;
+  padding: 8px;
+  justify-content: flex-start;
+  display: flex;
+  flex-direction: column;
+}
+
+.time-option {
+    text-align: left;
+  display: block;
+  cursor: pointer;
+  margin-bottom: 4px;
+}
+
+.time-option input {
+  margin-right: 6px;
+}

@@ -11,3 +11,114 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+:root{
+  --border:#e6e6e6;
+  --muted:#f7f7f7;
+  --text:#222;
+}
+
+/* basic layout */
+body{ font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:#fff; color:var(--text); margin:0; padding:0;}
+.planner-root{ max-width:1100px; margin:18px auto; padding:18px; position:relative; }
+
+/* header */
+.planner-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+.nav{ display:flex; align-items:center; gap:12px; }
+.month-label{ font-weight:700; font-size:20px; }
+.nav-btn{ padding:8px 12px; border-radius:6px; border:1px solid var(--border); background:#fff; cursor:pointer; }
+.legend{ display:flex; gap:8px; align-items:center; }
+.legend-item{ display:flex; gap:8px; align-items:center; font-size:13px; color:#444; }
+.legend-color{ width:12px; height:12px; border-radius:4px; display:inline-block; }
+
+/* calendar grid */
+.calendar-root{ border-radius:8px; overflow:hidden; border:1px solid var(--border); }
+.calendar-header{ display:grid; grid-template-columns:repeat(7,1fr); background:#fafafa; border-bottom:1px solid var(--border); }
+.weekday{ padding:12px 10px; text-align:center; font-weight:700; font-size:12px; color:#666; }
+.calendar-body{ display:flex; flex-direction:column; }
+.week-row{ display:grid; grid-template-columns:repeat(7,1fr); }
+.day-cell{ min-height:84px; border-right:1px solid var(--border); border-bottom:1px solid var(--border); padding:8px; position:relative; background:#fff;justify-items: center; }
+.day-cell.muted{ background:var(--muted); color:#9b9b9b; }
+.day-number{  font-size:13px; color:#777; }
+
+/* task area inside cell */
+.day-content{ margin-top:18px; display:flex; flex-direction:column; gap:6px; }
+
+/* overlay bars layer (positioned over calendar) */
+.bars-overlay{ position:absolute; left:calc( (100% - 1100px) / 2 + 18px ); top:76px; right:18px; pointer-events:none; }
+/* Note: top / left may need small adjustments depending on layout. The library version computes exact coordinates;
+   here we use percentage positioning per week row instead of pixel-perfect absolute grid. */
+
+/* bar wrapper */
+.bar-wrapper{ position:absolute; height:200px; pointer-events:auto; display:flex; align-items:center; gap:6px; padding-left:6px; box-sizing:border-box; }
+.bar-wrapper .bar-actions{ margin-left:8px; display:flex; gap:6px; align-items:center; }
+.mini{ font-size:12px; padding:4px 6px; border-radius:6px; border:0; background:#ffffffc9; cursor:pointer; }
+
+/* task bar visual */
+.task-bar{ border-radius:6px; color:#fff; padding:6px 10px; box-shadow:0 1px 0 rgba(0,0,0,0.08); display:flex; align-items:center; cursor:grab; user-select:none; }
+.task-title{ font-size:13px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+/* modal */
+/* modal.css */
+.modal-backdrop {
+  position: fixed;
+  inset: 0; /* top:0, left:0, right:0, bottom:0 */
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.modal {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 60;
+}
+
+.btn{ padding:8px 10px; border-radius:6px; border:1px solid var(--border); background:#fff; cursor:pointer; }
+.btn.primary{ background:#0b7be0; color:white; border:0; }
+.input{ width:100%; padding:8px; border-radius:6px; border:1px solid var(--border); }
+.label{ display:block; margin-top:8px; margin-bottom:6px; font-size:13px; color:#333; }
+/* highlight selected cells while dragging */
+.day-cell.selecting {
+  background: rgba(0, 163, 255, 0.12);
+}
+
+/* task-bar base (your existing .task-bar) should allow handles */
+.task-bar {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+/* optional: visible handle indicator for UX */
+.resize-handle.left::after,
+.resize-handle.right::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: rgba(0,0,0,0.14);
+  left: 3px;
+}
+.resize-handle.right::after {
+  left: auto;
+  right: 3px;
+}
+.day-cell.today {
+  border: 1px solid #007bff;
+  /* border-radius: 50%; */
+  background-color: rgba(0, 123, 255, 0.1);
+}
+.day-cell.today .day-number {
+  font-weight: bold;
+  color: #007bff;
+}
