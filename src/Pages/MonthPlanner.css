@@ -19,14 +19,12 @@
   border: 0;
 }
 
-/* Filter button */
 .filter-dropdown {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/* Filter panel popup */
 .filter-panel {
   display: flex;
   flex-direction: column;
@@ -43,14 +41,12 @@
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-/* Dropdown wrapper */
 .dropdown-wrapper {
   position: relative;
   display: inline-block;
   cursor: pointer;
 }
 
-/* Category & Time dropdowns */
 .category-dropdown,
 .time-dropdown {
   display: flex;
@@ -65,7 +61,6 @@
   font-size: 8px;
 }
 
-/* Category options */
 .category-options {
   margin-top: 4px;
   padding: 8px;
@@ -94,7 +89,6 @@
   font-size: 12px;
 }
 
-/* Time filter options */
 .time-options {
   margin-top: 4px;
   padding: 8px;

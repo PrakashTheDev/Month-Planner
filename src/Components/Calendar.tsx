@@ -2,29 +2,24 @@ import React, { useRef, useState } from "react";
 import { isSameMonth, format } from "date-fns";
 
 interface CalendarProps {
-  yearMonth: Date; // any date in the month to render
+  yearMonth: Date;
   weeks: Date[][];
   onDayClick: (date: Date) => void;
   onDropOnDay: (date: Date, data: DataTransfer) => void;
   renderDayContent?: (date: Date) => React.ReactNode;
-  onRangeSelect?: (start: Date, end: Date) => void; // new
+  onRangeSelect?: (start: Date, end: Date) => void;
 }
 
 export default function Calendar({ yearMonth, weeks, onDayClick, onDropOnDay, renderDayContent, onRangeSelect }: CalendarProps) {
-  // header
-  const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+   const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-  // selection state
-  const selectingRef = useRef<{ startDate: Date | null }>({ startDate: null });
+   const selectingRef = useRef<{ startDate: Date | null }>({ startDate: null });
   const [selectionRange, setSelectionRange] = useState<{ start: Date; end: Date } | null>(null);
 
-  // pointer handlers for range select
-  const onPointerDownCell = (ev: React.PointerEvent, day: Date) => {
-    // ignore if pointer coming from draggable (a task) - let drag & drop handle that
-    const target = ev.target as HTMLElement;
+   const onPointerDownCell = (ev: React.PointerEvent, day: Date) => {
+     const target = ev.target as HTMLElement;
     if (target.closest(".task-bar")) return;
-    // begin capture
-    (ev.target as Element).setPointerCapture(ev.pointerId);
+     (ev.target as Element).setPointerCapture(ev.pointerId);
     selectingRef.current.startDate = day;
     setSelectionRange({ start: day, end: day });
   };
@@ -32,8 +27,7 @@ export default function Calendar({ yearMonth, weeks, onDayClick, onDropOnDay, re
   const onPointerEnterCell = (ev: React.PointerEvent, day: Date) => {
     if (!selectingRef.current.startDate) return;
     const start = selectingRef.current.startDate;
-    // normalize order
-    const a = start <= day ? start : day;
+     const a = start <= day ? start : day;
     const b = start <= day ? day : start;
     setSelectionRange({ start: a, end: b });
   };
@@ -41,10 +35,9 @@ export default function Calendar({ yearMonth, weeks, onDayClick, onDropOnDay, re
   const onPointerUpCell = (ev: React.PointerEvent, day: Date) => {
     const start = selectingRef.current.startDate;
     if (!start) return;
-    // release capture
-    try {
+     try {
       (ev.target as Element).releasePointerCapture(ev.pointerId);
-    } catch {}
+    } catch { }
     const a = start <= day ? start : day;
     const b = start <= day ? day : start;
     setSelectionRange(null);
@@ -70,11 +63,11 @@ export default function Calendar({ yearMonth, weeks, onDayClick, onDropOnDay, re
                 day >= selectionRange.start &&
                 day <= selectionRange.end;
 
-  const today = new Date();
-  const isToday =
-    day.getFullYear() === today.getFullYear() &&
-    day.getMonth() === today.getMonth() &&
-    day.getDate() === today.getDate();
+              const today = new Date();
+              const isToday =
+                day.getFullYear() === today.getFullYear() &&
+                day.getMonth() === today.getMonth() &&
+                day.getDate() === today.getDate();
               return (
                 <div
                   key={di}
@@ -82,10 +75,10 @@ export default function Calendar({ yearMonth, weeks, onDayClick, onDropOnDay, re
                   onClick={() => onDayClick(day)}
                   onDragOver={(e) => e.preventDefault()}
                   onDrop={(e) => { e.preventDefault(); onDropOnDay(day, e.dataTransfer); }}
-                   onPointerDown={(e) => onPointerDownCell(e, day)}
+                  onPointerDown={(e) => onPointerDownCell(e, day)}
                   onPointerEnter={(e) => onPointerEnterCell(e, day)}
                   onPointerUp={(e) => onPointerUpCell(e, day)}
-                   data-date={format(day, "yyyy-MM-dd")}
+                  data-date={format(day, "yyyy-MM-dd")}
                 >
                   <div className="day-number">{format(day, "d")}</div>
                   <div className="day-content">{renderDayContent ? renderDayContent(day) : null}</div>
